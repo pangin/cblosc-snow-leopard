@@ -1,0 +1,10 @@
+#!/bin/sh
+# Force MacPorts ld64-274 at LINK time only. Adding -fuse-ld to compile-only
+# invocations (-c/-S/-E) triggers -Wunused-command-line-argument, which fails
+# under -Werror (libslic3r). So detect compile/preprocess and skip the flag.
+for a in "$@"; do
+  case "$a" in
+    -c|-S|-E|-M|-MM|-MG) exec /opt/local/bin/clang-mp-16 "$@" ;;
+  esac
+done
+exec /opt/local/bin/clang-mp-16 -fuse-ld=/opt/local/bin/ld-274 "$@"

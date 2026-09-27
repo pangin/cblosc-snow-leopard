@@ -1,0 +1,4 @@
+/build/
+/prefix/
+*.log
+.DS_Store
